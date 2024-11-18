@@ -33,22 +33,19 @@ public class MortgagePage extends BasePage {
     public void inputData(String price, String time, String initial){
         actions.moveToElement(tabMortgage).click().perform();
 
-        wait.until(ExpectedConditions.elementToBeClickable(priceOfRealty));
-        priceOfRealty.sendKeys(Keys.CONTROL + "a");
-        priceOfRealty.sendKeys(Keys.DELETE, price, Keys.ENTER);
+        waitElement(priceOfRealty);
+        inputData(priceOfRealty, price);
 
-        wait.until(ExpectedConditions.elementToBeClickable(timeMortgage));
-        timeMortgage.sendKeys(Keys.CONTROL + "a");
-        timeMortgage.sendKeys(Keys.DELETE, time, Keys.ENTER);
+        waitElement(timeMortgage);
+        inputData(timeMortgage, time);
 
-        wait.until(ExpectedConditions.elementToBeClickable(initialPayment));
-        initialPayment.sendKeys(Keys.CONTROL + "a");
-        initialPayment.sendKeys(Keys.DELETE, initial, Keys.ENTER);
+        waitElement(initialPayment);
+        inputData(initialPayment, initial);
     }
 
     public List<String> getResults(List<String> expectedResult){
-        wait.until(ExpectedConditions.textToBePresentInElement(monthlyPaymentOfMortgage, expectedResult.get(0)));
-        wait.until(ExpectedConditions.textToBePresentInElement(rateOfMortgage, expectedResult.get(1)));
+        waitTextInElement(monthlyPaymentOfMortgage, expectedResult.get(0));
+        waitTextInElement(rateOfMortgage, expectedResult.get(1));
         return Arrays.asList(monthlyPaymentOfMortgage.getText(),rateOfMortgage.getText());
     }
 

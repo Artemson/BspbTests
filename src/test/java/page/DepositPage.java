@@ -29,20 +29,17 @@ public class DepositPage extends BasePage {
 
     public void inputData(String amount, String period) throws InterruptedException {
         actions.moveToElement(tabDeposit).click().perform();
-        wait.until(ExpectedConditions.elementToBeClickable(amountDeposit));
-        amountDeposit.sendKeys(Keys.CONTROL + "A");
-        amountDeposit.sendKeys(Keys.DELETE);
-        amountDeposit.sendKeys(amount);
-        amountDeposit.sendKeys(Keys.ENTER);
-//        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@value='16 310 000 ₽'][preceding-sibling::p[text()='Сумма вклада']]")));
+
+        waitElement(amountDeposit);
+        inputData(amountDeposit, amount);
         WebElement periodDeposit = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[contains(@class, 'chakra-radio__label')][preceding-sibling::input[@value='" + period + "']]")));
         Thread.sleep(200);
         actions.moveToElement(periodDeposit).click().perform();
     }
 
     public List<String> getResults(List<String> expectedResult){
-        wait.until(ExpectedConditions.textToBePresentInElement(wageDeposit, expectedResult.get(0)));
-        wait.until(ExpectedConditions.textToBePresentInElement(rateDeposit, expectedResult.get(1)));
+        waitTextInElement(wageDeposit, expectedResult.get(0));
+        waitTextInElement(rateDeposit, expectedResult.get(1));
         return Arrays.asList(wageDeposit.getText(),rateDeposit.getText());
 
     }

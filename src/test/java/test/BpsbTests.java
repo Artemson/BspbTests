@@ -10,15 +10,13 @@ import page.MortgagePage;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-
 
 public class BpsbTests extends BaseTest {
     SoftAssertions softAssertions = new SoftAssertions();
 
     @Test
     public void cityChoose() {
-        String EXPECTED_RESULT = "Красндар";
+        String EXPECTED_RESULT = "Москва";
         CityChoosePage cityChoosePage = new CityChoosePage(driver);
         cityChoosePage.openSite(driver);
         cityChoosePage.chooseCity(EXPECTED_RESULT);

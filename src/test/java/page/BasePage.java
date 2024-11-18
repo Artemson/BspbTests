@@ -1,5 +1,6 @@
 package page;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -7,7 +8,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.List;
 
 
 public class BasePage {
@@ -26,5 +26,23 @@ public class BasePage {
 
     public void openSite(WebDriver driver){
         driver.get(MAIN_LINK_SITE);
+    }
+
+    protected void clickElement(WebElement element) {
+        waitElement(element);
+        element.click();
+    }
+
+    protected void waitElement(WebElement element){
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+    protected void waitTextInElement(WebElement element, String text){
+        wait.until(ExpectedConditions.textToBePresentInElement(element, text));
+    }
+
+    protected void inputData(WebElement element, String data){
+        element.sendKeys(Keys.CONTROL + "a");  // ?????????????????? Почему вместе они не работают ?????????????????
+        element.sendKeys(Keys.DELETE, data, Keys.ENTER);
     }
 }

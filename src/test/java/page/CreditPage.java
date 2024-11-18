@@ -25,14 +25,12 @@ public class CreditPage extends BasePage{
 
     public void inputData(String amount, String time){
         actions.moveToElement(tabCredit).click().perform();
-        amountCredit.sendKeys(Keys.CONTROL + "a");
-        amountCredit.sendKeys(Keys.DELETE, amount, Keys.ENTER);
-        timeCredit.sendKeys(Keys.CONTROL + "a");
-        timeCredit.sendKeys(Keys.DELETE, time, Keys.ENTER);
+        inputData(amountCredit, amount);
+        inputData(timeCredit, time);
     }
 
     public String getResult(String expectedResult){
-        wait.until(ExpectedConditions.textToBePresentInElement(res, expectedResult));
+        waitTextInElement(res, expectedResult);
         return res.getText();
     }
 
