@@ -7,7 +7,6 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class MortgagePage extends BasePage {
 
@@ -31,16 +30,16 @@ public class MortgagePage extends BasePage {
     private WebElement initialPayment;
 
 
-    public void inputData(String price, String time, String initial){
+    public void inputMortgageData(String price, String time, String initial){
         actions.moveToElement(tabMortgage).click().perform();
 
-        waitElement(priceOfRealty);
+        waitElementBeClicable(priceOfRealty);
         inputData(priceOfRealty, price);
 
-        waitElement(timeMortgage);
+        waitElementBeClicable(timeMortgage);
         inputData(timeMortgage, time);
 
-        waitElement(initialPayment);
+        waitElementBeClicable(initialPayment);
         inputData(initialPayment, initial);
     }
 

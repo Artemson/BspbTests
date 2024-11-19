@@ -21,7 +21,7 @@ public class CreditPage extends BasePage{
     @FindBy(xpath="//div[@role='tabpanel' and not (@hidden)]//*[preceding-sibling::p[text()='Ежемесячный платеж']]")
     private WebElement res;
 
-    public void inputData(String amount, String time){
+    public void inputCreditData(String amount, String time){
         actions.moveToElement(tabCredit).click().perform();
         inputData(amountCredit, amount);
         inputData(timeCredit, time);

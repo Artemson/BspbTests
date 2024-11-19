@@ -7,15 +7,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DepositPage extends BasePage {
-
-    public DepositPage(WebDriver driver) {
-        super(driver);
-        PageFactory.initElements(driver, this);
-    }
+    Map<String, WebElement> mapWebElements = new HashMap<String, WebElement>();
 
     @FindBy(xpath = "//button[text()='Вклад']")
     private WebElement tabDeposit;
@@ -26,21 +22,30 @@ public class DepositPage extends BasePage {
     @FindBy(xpath = "//div[@role='tabpanel' and not (@hidden)]//h2[preceding-sibling::p[text()='Ставка']]")
     private WebElement rateDeposit;
 
-    public void inputData(String amount, String period) throws InterruptedException {
+    public DepositPage(WebDriver driver) {
+        super(driver);
+        PageFactory.initElements(driver, this);
+        mapWebElements.put("wageDeposit", wageDeposit);
+        mapWebElements.put("rateDeposit", rateDeposit);
+    }
+
+    public void inputDepositData(String amount, String period) throws InterruptedException {
         actions.moveToElement(tabDeposit).click().perform();
 
-        waitElement(amountDeposit);
+        waitElementBeClicable(amountDeposit);
         inputData(amountDeposit, amount);
-        WebElement periodDeposit = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[contains(@class, 'chakra-radio__label')][preceding-sibling::input[@value='" + period + "']]")));
-        Thread.sleep(200);
+        WebElement periodDeposit = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(@class, 'chakra-radio__label')][preceding-sibling::input[@value='" + period + "']]")));
         actions.moveToElement(periodDeposit).click().perform();
     }
 
-    public List<String> waitAndGetActualResult(List<String> expectedResult){
-        waitTextInElement(wageDeposit, expectedResult.get(0));
-        waitTextInElement(rateDeposit, expectedResult.get(1));
-        return Arrays.asList(wageDeposit.getText(),rateDeposit.getText());
 
+    public Map<String, String> waitAndGetActualResult(Map<String, String> expectedResult) {
+        Map<String, String> actualResults = new HashMap<String, String>();
+        for (String key : expectedResult.keySet()) {
+            waitTextInElement(mapWebElements.get(key), expectedResult.get(key));
+            actualResults.put(key, mapWebElements.get(key).getText());
+        }
+        return actualResults;
     }
 
 }

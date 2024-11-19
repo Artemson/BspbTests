@@ -18,30 +18,30 @@ public class BasePage {
 
     final private String MAIN_LINK_SITE = "https://www.bspb.ru/";
 
-    public BasePage(WebDriver driver){
-       this.driver = driver;
-       this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-       this.actions = new Actions(driver);
+    public BasePage(WebDriver driver) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        this.actions = new Actions(driver);
     }
 
-    public void openSite(WebDriver driver){
+    public void openSite(WebDriver driver) {
         driver.get(MAIN_LINK_SITE);
     }
 
     protected void clickElement(WebElement element) {
-        waitElement(element);
+        waitElementBeClicable(element);
         element.click();
     }
 
-    protected void waitElement(WebElement element){
+    protected void waitElementBeClicable(WebElement element) {
         wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
-    protected void waitTextInElement(WebElement element, String text){
+    protected void waitTextInElement(WebElement element, String text) {
         wait.until(ExpectedConditions.textToBePresentInElement(element, text));
     }
 
-    protected void inputData(WebElement element, String data){
+    protected void inputData(WebElement element, String data) {
         element.sendKeys(Keys.CONTROL + "a");  // ?????????????????? Почему вместе они не работают ?????????????????
         element.sendKeys(Keys.DELETE);
         element.sendKeys(data);
