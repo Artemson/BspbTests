@@ -1,7 +1,6 @@
 package page;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -37,7 +36,7 @@ public class DepositPage extends BasePage {
         actions.moveToElement(periodDeposit).click().perform();
     }
 
-    public List<String> getResults(List<String> expectedResult){
+    public List<String> waitAndGetActualResult(List<String> expectedResult){
         waitTextInElement(wageDeposit, expectedResult.get(0));
         waitTextInElement(rateDeposit, expectedResult.get(1));
         return Arrays.asList(wageDeposit.getText(),rateDeposit.getText());

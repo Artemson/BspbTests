@@ -43,6 +43,8 @@ public class BasePage {
 
     protected void inputData(WebElement element, String data){
         element.sendKeys(Keys.CONTROL + "a");  // ?????????????????? Почему вместе они не работают ?????????????????
-        element.sendKeys(Keys.DELETE, data, Keys.ENTER);
+        element.sendKeys(Keys.DELETE);
+        element.sendKeys(data);
+        element.sendKeys(Keys.ENTER);
     }
 }

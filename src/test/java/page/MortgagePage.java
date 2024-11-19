@@ -1,14 +1,13 @@
 package page;
 
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class MortgagePage extends BasePage {
 
@@ -16,6 +15,7 @@ public class MortgagePage extends BasePage {
         super(driver);
         PageFactory.initElements(driver, this);
     }
+
 
     @FindBy(xpath = "//button[text()='Ипотека']")
     private WebElement tabMortgage;
@@ -30,6 +30,7 @@ public class MortgagePage extends BasePage {
     @FindBy(xpath = "//input[preceding-sibling::p[text()='Первоначальный взнос']]")
     private WebElement initialPayment;
 
+
     public void inputData(String price, String time, String initial){
         actions.moveToElement(tabMortgage).click().perform();
 
@@ -43,7 +44,7 @@ public class MortgagePage extends BasePage {
         inputData(initialPayment, initial);
     }
 
-    public List<String> getResults(List<String> expectedResult){
+    public List<String> waitAndGetActualResult(List<String> expectedResult){
         waitTextInElement(monthlyPaymentOfMortgage, expectedResult.get(0));
         waitTextInElement(rateOfMortgage, expectedResult.get(1));
         return Arrays.asList(monthlyPaymentOfMortgage.getText(),rateOfMortgage.getText());

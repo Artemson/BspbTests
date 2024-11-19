@@ -30,7 +30,7 @@ public class BpsbTests extends BaseTest {
         CreditPage creditPage = new CreditPage(driver);
         creditPage.openSite(driver);
         creditPage.inputData("2_000_000", "27");
-        softAssertions.assertThat(creditPage.getResult(EXPECTED_RESULT)).as("Check credit results").isEqualTo(EXPECTED_RESULT);
+        softAssertions.assertThat(creditPage.waitAndGetActualResult(EXPECTED_RESULT)).as("Check credit results").isEqualTo(EXPECTED_RESULT);
         softAssertions.assertAll();
     }
 
@@ -40,7 +40,7 @@ public class BpsbTests extends BaseTest {
         DepositPage depositPage = new DepositPage(driver);
         depositPage.openSite(driver);
         depositPage.inputData("16_310_000", "733");
-        softAssertions.assertThat(depositPage.getResults(EXPECTED_RESULTS)).as("Check deposit results").isEqualTo(EXPECTED_RESULTS);
+        softAssertions.assertThat(depositPage.waitAndGetActualResult(EXPECTED_RESULTS)).as("Check deposit results").isEqualTo(EXPECTED_RESULTS);
         softAssertions.assertAll();
     }
 
@@ -50,8 +50,7 @@ public class BpsbTests extends BaseTest {
         MortgagePage mortgagePage = new MortgagePage(driver);
         mortgagePage.openSite(driver);
         mortgagePage.inputData("7_985_000", "201", "2_607_142");
-        List<String> results = mortgagePage.getResults(EXPECTED_RESULTS);
-        softAssertions.assertThat(mortgagePage.getResults(EXPECTED_RESULTS)).as("Check mortgage results").isEqualTo(EXPECTED_RESULTS);
+        softAssertions.assertThat(mortgagePage.waitAndGetActualResult(EXPECTED_RESULTS)).as("Check mortgage results").isEqualTo(EXPECTED_RESULTS);
         softAssertions.assertAll();
     }
 
