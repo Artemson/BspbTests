@@ -5,8 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.Map;
 
 public class MortgagePage extends BasePage {
 
@@ -19,9 +18,9 @@ public class MortgagePage extends BasePage {
     @FindBy(xpath = "//button[text()='Ипотека']")
     private WebElement tabMortgage;
     @FindBy(xpath = "//div[@role='tabpanel' and not (@hidden)]//*[preceding-sibling::p[text()='Ежемесячный платеж']]")
-    private WebElement monthlyPaymentOfMortgage;
+    private WebElement monthlyPayment;
     @FindBy(xpath = "//div[@role='tabpanel' and not (@hidden)]//h2[preceding-sibling::p[text()='Ставка']]")
-    private WebElement rateOfMortgage;
+    private WebElement rate;
     @FindBy(xpath = "//input[preceding-sibling::p[text()='Стоимость недвижимости']]")
     private WebElement priceOfRealty;
     @FindBy(xpath = "//input[preceding-sibling::p[text()='Срок']]")
@@ -30,24 +29,27 @@ public class MortgagePage extends BasePage {
     private WebElement initialPayment;
 
 
-    public void inputMortgageData(String price, String time, String initial){
+    public void inputMortgageData(String price, String time, String initial) {
         actions.moveToElement(tabMortgage).click().perform();
 
+
         waitElementBeClicable(priceOfRealty);
-        inputData(priceOfRealty, price);
+        refreshOldValue(monthlyPayment);
+        sendData(priceOfRealty, price);
+        waitResultField(monthlyPayment);
 
         waitElementBeClicable(timeMortgage);
-        inputData(timeMortgage, time);
+        refreshOldValue(monthlyPayment);
+        sendData(timeMortgage, time);
+        waitResultField(monthlyPayment);
 
         waitElementBeClicable(initialPayment);
-        inputData(initialPayment, initial);
+        refreshOldValue(monthlyPayment);
+        sendData(initialPayment, initial);
+        waitResultField(monthlyPayment);
     }
 
-    public List<String> waitAndGetActualResult(List<String> expectedResult){
-        waitTextInElement(monthlyPaymentOfMortgage, expectedResult.get(0));
-        waitTextInElement(rateOfMortgage, expectedResult.get(1));
-        return Arrays.asList(monthlyPaymentOfMortgage.getText(),rateOfMortgage.getText());
+    public Map<String, String> getActualResult() {
+        return Map.of("monthlyPayment", monthlyPayment.getText(), "rate", rate.getText());
     }
-
-
 }

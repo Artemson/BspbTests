@@ -1,0 +1,5 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Wed Nov 20 15:58:54 MSK 2024","Wed Nov 20 15:59:01 MSK 2024","7227","","test.BpsbTests","","test.BpsbTests","mortgage","mortgage()",""
+"failed","Wed Nov 20 15:58:36 MSK 2024","Wed Nov 20 15:58:44 MSK 2024","8194","","test.BpsbTests","","test.BpsbTests","credit","credit()",""
+"passed","Wed Nov 20 15:59:01 MSK 2024","Wed Nov 20 15:59:08 MSK 2024","6352","","test.BpsbTests","","test.BpsbTests","deposit","deposit()",""
+"broken","Wed Nov 20 15:58:44 MSK 2024","Wed Nov 20 15:58:54 MSK 2024","9503","","test.BpsbTests","","test.BpsbTests","cityChoose","cityChoose()",""

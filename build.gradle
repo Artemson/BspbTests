@@ -1,26 +1,55 @@
 plugins {
-    id "java"
+    id 'java'
 }
 
-group = 'org.example'
-version = '1.0-SNAPSHOT'
+wrapper {
+    gradleVersion = '8.7'
+}
 
 repositories {
     mavenCentral()
 }
 
+group = 'org.example.junit4'
+version = '1.0-SNAPSHOT'
+
+def allureVersion = '2.26.0'
+def aspectJVersion = '1.9.22'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
+
+configurations {
+    agent {
+        canBeResolved = true
+        canBeConsumed = true
+    }
+}
+
 dependencies {
-    // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+    agent "org.aspectj:aspectjweaver:$aspectJVersion"
+
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.11.3'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
+    testImplementation platform("io.qameta.allure:allure-bom:$allureVersion")
+    testImplementation "io.qameta.allure:allure-junit5"
+
     testImplementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.26.0'
-    // https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager
+
     testImplementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '5.9.2'
-    // https://mvnrepository.com/artifact/junit/junit
-    testImplementation group: 'junit', name: 'junit', version: '4.13.2'
+
     // https://mvnrepository.com/artifact/org.assertj/assertj-core
     testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.26.3'
 
+    testImplementation "org.slf4j:slf4j-simple:2.0.12"
 }
 
 test {
-    useJUnit()
+    ignoreFailures = true
+    useJUnitPlatform()
+    jvmArgs = [ "-javaagent:${configurations.agent.singleFile}" ]
 }

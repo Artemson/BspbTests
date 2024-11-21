@@ -19,17 +19,22 @@ public class CreditPage extends BasePage{
     @FindBy(xpath="//input[preceding-sibling::p[text()='Срок кредита']]")
     private WebElement timeCredit;
     @FindBy(xpath="//div[@role='tabpanel' and not (@hidden)]//*[preceding-sibling::p[text()='Ежемесячный платеж']]")
-    private WebElement res;
+    private WebElement monthlyPayment;
 
     public void inputCreditData(String amount, String time){
         actions.moveToElement(tabCredit).click().perform();
-        inputData(amountCredit, amount);
-        inputData(timeCredit, time);
+
+        refreshOldValue(monthlyPayment);
+        sendData(amountCredit, amount);
+        waitResultField(monthlyPayment);
+
+        refreshOldValue(monthlyPayment);
+        sendData(timeCredit, time);
+        waitResultField(monthlyPayment);
     }
 
-    public String waitAndGetActualResult(String expectedResult){
-        waitTextInElement(res, expectedResult);
-        return res.getText();
+    public String getActualResult(){
+        return monthlyPayment.getText();
     }
 
 }

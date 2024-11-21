@@ -14,16 +14,16 @@ public class CityChoosePage extends BasePage {
     }
 
     @FindBy(xpath = "//button[contains(@id, 'menu-button')][preceding-sibling::a[contains(@href, 'offices')]]")
-    private WebElement listCitiesButton;
+    private WebElement citiesMenu;
 
     public void chooseCity(String city) {
-        clickElement(listCitiesButton);
-        clickElement(driver.findElement(By.xpath("//button[text()='" + city + "']")));
-        waitTextInElement(listCitiesButton, city);
+        clickElement(citiesMenu);
+        clickElement(driver.findElement(By.xpath(String.format("//button[text()='%s']", city)))); //String.format()
+        waitTextInElement(citiesMenu, city);
     }
 
     public String getSelectedCity() {
-        return listCitiesButton.getText();
+        return citiesMenu.getText();
     }
 
 }

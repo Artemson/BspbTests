@@ -6,17 +6,19 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 
 
 public class BasePage {
 
+    private static final Logger log = LoggerFactory.getLogger(BasePage.class);
+    protected String oldValue;
     protected WebDriver driver;
     protected WebDriverWait wait;
     protected Actions actions;
-
-    final private String MAIN_LINK_SITE = "https://www.bspb.ru/";
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
@@ -25,7 +27,7 @@ public class BasePage {
     }
 
     public void openSite(WebDriver driver) {
-        driver.get(MAIN_LINK_SITE);
+        driver.get("https://www.bspb.ru/");
     }
 
     protected void clickElement(WebElement element) {
@@ -41,8 +43,22 @@ public class BasePage {
         wait.until(ExpectedConditions.textToBePresentInElement(element, text));
     }
 
-    protected void inputData(WebElement element, String data) {
-        element.sendKeys(Keys.CONTROL + "a");  // ?????????????????? Почему вместе они не работают ?????????????????
+    protected void waitResultField(WebElement element) {
+        System.out.println(String.format("Oldvalue = %s", oldValue));
+        System.out.println(String.format("text %s != %s", element.getText() ,oldValue));
+        wait.until(ExpectedConditions.not(ExpectedConditions.textToBePresentInElement(element, oldValue)));
+    }
+
+
+    protected void refreshOldValue(WebElement element){
+        System.out.println(String.format("text in element = %s", element.getText()));
+        wait.until(ExpectedConditions.not(ExpectedConditions.textToBePresentInElement(element, "0 ₽")));
+        oldValue = element.getText();
+        System.out.println(String.format("Oldvalue = %s", oldValue));
+    }
+
+    protected void sendData(WebElement element, String data){
+        element.sendKeys(Keys.CONTROL + "a");
         element.sendKeys(Keys.DELETE);
         element.sendKeys(data);
         element.sendKeys(Keys.ENTER);
