@@ -24,13 +24,13 @@ public class CreditPage extends BasePage{
     public void inputCreditData(String amount, String time){
         actions.moveToElement(tabCredit).click().perform();
 
-        refreshOldValue(monthlyPayment);
+        oldValue = monthlyPayment.getText();
         sendData(amountCredit, amount);
-        waitResultField(monthlyPayment);
+        waitForTextChange(monthlyPayment, oldValue);
 
-        refreshOldValue(monthlyPayment);
+        oldValue = monthlyPayment.getText();
         sendData(timeCredit, time);
-        waitResultField(monthlyPayment);
+        waitForTextChange(monthlyPayment, oldValue);
     }
 
     public String getActualResult(){

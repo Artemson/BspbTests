@@ -34,19 +34,19 @@ public class MortgagePage extends BasePage {
 
 
         waitElementBeClicable(priceOfRealty);
-        refreshOldValue(monthlyPayment);
+        oldValue = monthlyPayment.getText();
         sendData(priceOfRealty, price);
-        waitResultField(monthlyPayment);
+        waitForTextChange(monthlyPayment, oldValue);
 
         waitElementBeClicable(timeMortgage);
-        refreshOldValue(monthlyPayment);
+        oldValue = monthlyPayment.getText();
         sendData(timeMortgage, time);
-        waitResultField(monthlyPayment);
+        waitForTextChange(monthlyPayment, oldValue);
 
         waitElementBeClicable(initialPayment);
-        refreshOldValue(monthlyPayment);
+        oldValue = monthlyPayment.getText();
         sendData(initialPayment, initial);
-        waitResultField(monthlyPayment);
+        waitForTextChange(monthlyPayment, oldValue);
     }
 
     public Map<String, String> getActualResult() {

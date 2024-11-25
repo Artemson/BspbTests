@@ -16,7 +16,7 @@ public class BpsbTests extends BaseTest {
 
     @Test
     public void cityChoose() {
-        String expected = "Ростов-на-ону";
+        String expected = "Ростов-на-Дону";
         CityChoosePage cityChoosePage = new CityChoosePage(driver);
         cityChoosePage.openSite(driver);
         cityChoosePage.chooseCity(expected);
@@ -37,7 +37,7 @@ public class BpsbTests extends BaseTest {
     }
 
     @Test
-    public void deposit() throws InterruptedException {
+    public void deposit() {
         Map<String, String> expected = Map.of("wageDeposit", "5 895 730 ₽", "rateDeposit", "18 %");
         DepositPage depositPage = new DepositPage(driver);
         depositPage.openSite(driver);
@@ -54,7 +54,7 @@ public class BpsbTests extends BaseTest {
         mortgagePage.openSite(driver);
         mortgagePage.inputMortgageData("7_985_000", "201", "2_607_142");
         Map<String, String> actual = mortgagePage.getActualResult();
-        assertThat(mortgagePage.getActualResult()).as("Check mortgage results").isEqualTo(expected);
+        assertThat(actual).as("Check mortgage results").isEqualTo(expected);
     }
 
 

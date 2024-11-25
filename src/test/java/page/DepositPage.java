@@ -28,13 +28,13 @@ public class DepositPage extends BasePage {
     public void inputDepositData(String amount, String period) {
         actions.moveToElement(tabDeposit).click().perform();
         waitElementBeClicable(amountDeposit);
-        refreshOldValue(wageDeposit);
+        oldValue = wageDeposit.getText();
         sendData(amountDeposit, amount);
-        waitResultField(wageDeposit);
+        waitForTextChange(wageDeposit, oldValue);
         WebElement periodDeposit = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(String.format("//span[contains(@class, 'chakra-radio__label')][preceding-sibling::input[@value='%s']]", period))));
-        refreshOldValue(wageDeposit);
+        oldValue = wageDeposit.getText();
         actions.moveToElement(periodDeposit).click().perform();
-        waitResultField(wageDeposit);
+        waitForTextChange(wageDeposit, oldValue);
     }
 
 

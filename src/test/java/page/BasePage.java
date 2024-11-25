@@ -43,18 +43,10 @@ public class BasePage {
         wait.until(ExpectedConditions.textToBePresentInElement(element, text));
     }
 
-    protected void waitResultField(WebElement element) {
-        System.out.println(String.format("Oldvalue = %s", oldValue));
-        System.out.println(String.format("text %s != %s", element.getText() ,oldValue));
-        wait.until(ExpectedConditions.not(ExpectedConditions.textToBePresentInElement(element, oldValue)));
-    }
-
-
-    protected void refreshOldValue(WebElement element){
-        System.out.println(String.format("text in element = %s", element.getText()));
-        wait.until(ExpectedConditions.not(ExpectedConditions.textToBePresentInElement(element, "0 ₽")));
-        oldValue = element.getText();
-        System.out.println(String.format("Oldvalue = %s", oldValue));
+    protected void waitForTextChange(WebElement element, String currentValue) {
+        log.info("Waiting for text change in element...");
+        wait.until(ExpectedConditions.not(ExpectedConditions.textToBePresentInElement(element, currentValue)));
+        log.info("Text has changed. New value: {}", element.getText());
     }
 
     protected void sendData(WebElement element, String data){
