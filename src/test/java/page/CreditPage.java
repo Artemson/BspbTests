@@ -18,7 +18,7 @@ public class CreditPage extends BasePage{
     private WebElement amountCredit;
     @FindBy(xpath="//input[preceding-sibling::p[text()='Срок кредита']]")
     private WebElement timeCredit;
-    @FindBy(xpath="//div[@role='tabpanel' and not (@hidden)]//*[preceding-sibling::p[text()='Ежемесячный платеж']]")
+    @FindBy(xpath="//div[preceding-sibling::h2[text()='Потребительский кредит']]//*[preceding-sibling::p[text()='Ежемесячный платеж']]")
     private WebElement monthlyPayment;
 
     public void inputCreditData(String amount, String time){

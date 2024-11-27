@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.Map;
 
@@ -17,7 +18,7 @@ public class MortgagePage extends BasePage {
 
     @FindBy(xpath = "//button[text()='Ипотека']")
     private WebElement tabMortgage;
-    @FindBy(xpath = "//div[@role='tabpanel' and not (@hidden)]//*[preceding-sibling::p[text()='Ежемесячный платеж']]")
+    @FindBy(xpath = "//div[preceding-sibling::h2[text()='Семейная ипотека']]//*[preceding-sibling::p[text()='Ежемесячный платеж']]")
     private WebElement monthlyPayment;
     @FindBy(xpath = "//div[@role='tabpanel' and not (@hidden)]//h2[preceding-sibling::p[text()='Ставка']]")
     private WebElement rate;
@@ -32,7 +33,7 @@ public class MortgagePage extends BasePage {
     public void inputMortgageData(String price, String time, String initial) {
         actions.moveToElement(tabMortgage).click().perform();
 
-
+        wait.until(ExpectedConditions.visibilityOf(monthlyPayment));
         waitElementBeClicable(priceOfRealty);
         oldValue = monthlyPayment.getText();
         sendData(priceOfRealty, price);
